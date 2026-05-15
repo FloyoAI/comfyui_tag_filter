@@ -1,3 +1,4 @@
+import ast
 import csv
 import os
 import json
@@ -98,8 +99,8 @@ def json_format(text:str) -> dict:
         pass
     
     try:
-        return eval(text)
-    except (Exception, SyntaxError):
+        return ast.literal_eval(text)
+    except (ValueError, SyntaxError):
         pass
 
     try:

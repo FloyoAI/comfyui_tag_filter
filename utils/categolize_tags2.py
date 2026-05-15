@@ -1,10 +1,11 @@
+import ast
 import csv
 import os
 import json
 import sys
 import random
 
-from yaml import safe_load, full_load, unsafe_load, safe_dump
+from yaml import safe_load, full_load, safe_dump
 
 import cohere
 import cohere.core.api_error
@@ -27,11 +28,6 @@ class YamlUtils:
 
         try:
             return full_load(text)
-        except Exception:
-            pass
-
-        try:
-            return unsafe_load(text)
         except Exception:
             pass
 
@@ -254,8 +250,8 @@ def json_format(text:str) -> dict:
         pass
     
     try:
-        return eval(text)
-    except (Exception, SyntaxError):
+        return ast.literal_eval(text)
+    except (ValueError, SyntaxError):
         pass
 
     try:
